@@ -1,145 +1,251 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="pt-BR">
 <head>
-    <meta charset="utf-8">
-    <title> Infolic </title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <link rel="icon" type="image/png" href="infolicimg.png">
-    <style>
-        .toast {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #4CAF50;
-            color: white;
-            padding: 16px;
-            border-radius: 8px;
-            font-size: 16px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            animation: slideIn 0.3s ease-out, slideOut 0.3s ease-out 1.7s forwards;
-            z-index: 1000;
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateX(400px);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-
-        @keyframes slideOut {
-            from {
-                transform: translateX(0);
-                opacity: 1;
-            }
-
-            to {
-                transform: translateX(400px);
-                opacity: 0;
-            }
-        }
-    </style>
-    <script>
-        function copiarMensagem(mensagem) {
-            navigator.clipboard.writeText(mensagem).then(() => {
-                mostrarToast('Mensagem copiada!');
-            }).catch(() => {
-                mostrarToast('Erro ao copiar', 'erro');
-            });
-        }
-
-        function mostrarToast(mensagem, tipo = 'sucesso') {
-            const toast = document.createElement('div');
-            toast.className = 'toast';
-            toast.textContent = mensagem;
-
-            if (tipo === 'erro') {
-                toast.style.backgroundColor = '#f44336';
-            }
-
-            document.body.appendChild(toast);
-
-            setTimeout(() => {
-                toast.remove();
-            }, 2000);
-        }
-    </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Infolic | SAC</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="infolicimg.png" />
+  <audio id="clickSound" src="click.mp3" preload="auto"></audio>
 </head>
 
 <body>
-    <!-- <header>
-        <img src="infolicimg.png" alt="Imagem da Infolic">
-        <h1> Sac Infolic </h1>
-    </header> -->
-    <main>
-        <button onclick="copiarMensagem('ABERTURA ATENDIMENTO\nMOTIVO DO CONTATO: \nRESOLUÇÃO: \nN° PROTOCOLO: ')">
-            <p>Atendimento</p>
-        </button>
-        <button
-            onclick="copiarMensagem('LIBERAÇÃO DE CONFIANÇA\nFATURA EM ABERTO: \nPRAZO PARA PAGAR: \nCIENTE DO PRAZO: Ciente\nMEIO DE CONTATO: \nN° PROTOCOLO: ')">
-            <p>Liberação</p>
-        </button>
-        <button
-            onclick="copiarMensagem('RELATO DO CLIENTE: \nPONTO DE REFERÊNCIA: \nOBS: \nO.S ANTERIOR: \nN° PROTOCOLO: ')">
-            <p>O.S Reparo</p>
-        </button>
-        <!-- <button onclick="copiarMensagem('MENSAGENS PRONTAS')"> <p>Mensagens Prontas</p> </button> -->
-        <button onclick="copiarMensagem('ANIVERSARIANTE\nMOTIVO: Aniversariante do dia\nRESOLUÇÃO: Mensagem padrão de aniversário\nN° PROTOCOLO: ')">
-            <p>Aniversariante</p>
-        </button>
-        <button onclick="copiarMensagem('ADESÃO\nCONTRATO: ( ) JÁ PROTOCOLADO ( ) LEVAR PARA CLIENTE ASSINAR ( ) CLIENTE VAI ASSINAR DIGITAL\nCONSULTOR: \nNECESSIDADE DO CLIENTE: \nPLANO CONTRATADO: \nTECNOLOGIA: UTP ( ) FTTH ( )\nDATA DE VENCIMENTO: \nVALOR A RECEBER: \nDOCUMENTOS OK?: Ok\nDATA DA INSTALAÇÃO: \nTURNO PREFERENCIAL: \nFIDELIDADE 1 ANO: Ciente\nMEIO DE CONTATO: \nN° PROTOCOLO: ')">
-            <p>Adesão</p>
-        </button>
-        <button onclick="copiarMensagem('UPGRADE\nCONTRATO: ( ) JÁ PROTOCOLADO ( ) LEVAR PARA CLIENTE ASSINAR ( ) CLIENTE VAI ASSINAR DIGITAL\nPLANO ATUAL: \nPLANO OFERECIDO: \nFECHOU PLANO?: Sim\nMODELO DO ROTEADOR: \nTAXA DE UPGRADE: \nMOTIVO DO FECHAMENTO: \nCADASTRO ATUALIZADO?: \nMEIO DE CONTATO: \nN° PROTOCOLO: \nObs: Cliente ciente da atualização do plano e da renovação de fidelidade por 12 meses.')">
-            <p>Upgrade</p>
-        </button>
-        <button onclick="copiarMensagem('MUDANÇA DE ENDEREÇO\nPOSSUI CABEAMENTO?: \nQUAL A TECNOLOGIA: UTP ( ) FTTH ( )\nCONTRATO: JÁ PROTOCOLADO (   ) ASSINATURA DIGITAL  (   ) LEVAR PARA CLIENTE ASSINAR (   )\nRECEBER TAXA?: \nRua: \nNº: \nBairro: \nPONTO DE REFERÊNCIA: \nTURNO: \nCONTATO: \nAGENDAMENTO: \nMEIO DE CONTATO: \nN° PROTOCOLO: ')">
-            <p>Mudança de Endereço</p>
-        </button>
-        <button onclick="copiarMensagem('O.S RESOLVIDO POR TELEFONE\nRELATO DO CLIENTE: \nTESTES REALIZADOS: \nRESOLUÇÃO: \nMEIO DE CONTATO: Telefone\nN° PROTOCOLO: ')">
-            <p>O.S Resolvida por Telefone</p>
-        </button>
-        <button onclick="copiarMensagem('INDIQUE UM AMIGO\nCLIENTE QUE INDICOU: \nCLIENTE INDICADO: \nDESCONTO APLICADO: ')">
-            <p>Indique um Amigo</p>
-        </button>
-        <button onclick="copiarMensagem('SUSPENSÃO TEMPORÁRIA\nMOTIVO DA SUSPENSÃO: \nMEIO DE CONTATO: \nN° PROTOCOLO: ')">
-            <p>Suspensão Temporaria</p>
-        </button>
-        <button onclick="copiarMensagem('REDE INTERNA\nVALOR: \nMOTIVO: \nAGENDAMENTO: \nPROTOCOLO: \nOBS: Cliente ciente da cobrança de R$3,00 por metro após 10m.')">
-            <p>Rede Interna</p>
-        </button>
-        <button onclick="copiarMensagem('MUDANÇA DE CÔMODO\nVALOR: \nMOTIVO: \nAGENDAMENTO: \nPROTOCOLO: ')">
-            <p>Mudança de Cômodo</p>
-        </button>
-        <button onclick="copiarMensagem('FILA DE BLOQUEIO\nDATA DO CONTATO: \nHORÁRIO: \nMOTIVO: \nCONTATO COM SUCESSO?: ')">
-            <p>Fila de Bloqueio</p>
-        </button>
-        <button onclick="copiarMensagem('PÓS ATENDIMENTO\nMOTIVO: Pós de reparo técnico\nCONTATO REALIZADO: (  ) COM SUCESSO ( ) SEM SUCESSO / (  ) SATISFEITO ( ) INSATISFEITO\nN° PROTOCOLO: ')">
-            <p>Pós Atendimento</p>
-        </button>
-        <button onclick="copiarMensagem('PÓS DE VENDA\nMOTIVO: Pós venda\nCONTATO REALIZADO: ( ) COM SUCESSO ( ) SEM SUCESSO\nN° PROTOCOLO: ')">
-            <p>Pós de Venda</p>
-        </button>
-        <button onclick="copiarMensagem('PESQUISA DE SATISFAÇÃO (SEM ABRIR O.S A MAIS DE 90 DIAS)\nDATA DO CONTATO: \nRELATO: Cliente informou que está tudo funcionando perfeitamente e que está satisfeito com o serviço / Cliente não atendeu as tentativas de contato telefônico\nPROTOCOLO: ')">
-            <p>Pesquisa de Satisfação</p>
-        </button>
-        <button onclick="copiarMensagem('PESQUISA DE NPS\nCLIENTE ATENDEU: ( ) SIM (  ) NÃO\nNOTA: \nSUGESTÃO DE MELHORIA: \nPROTOCOLO: ')">
-            <p>Pesquisa de NPS</p>
-        </button>
-        <button onclick="copiarMensagem('VELOCIDADE DE TESTE\nPLANO ATUAL: \nPLANO DE TESTE: \nMODELO DO ROTEADOR: \nDATA DE RETIRADA: \nMOTIVO DO TESTE: \nMEIO DE CONTATO: \nN° PROTOCOLO: ')">
-            <p>Velocidade de Teste</p>
-        </button>
 
-    </main>
-    <!-- <footer>
-        <p> &copy; 2024 Infolic. Todos os direitos reservados. </p>
-    </footer> -->
+<div class="app">
+
+  <aside class="sidebar">
+    <figure class="logo">
+      <img src="infolic.png" alt="Infolic Telecom">
+      <span>Infolic Telecom</span>
+    </figure>
+
+    <nav class="menu">
+      <button class="menu-item">📊 <span>Atendimentos</span></button>
+      <button class="menu-item">📁 <span>Relatórios</span></button>
+      <button class="menu-item">⚙️ <span>Configurações</span></button>
+      <button class="menu-item">🛠️ <span>Suporte</span></button>
+    </nav>
+  </aside>
+
+  <main class="content">
+
+    <header class="header">
+      <span class="badge">SAC</span>
+      <p>Mensagens prontas para facilitar sua criação de atendimento</p>
+    </header>
+
+    <section class="buttons-container">
+
+      <button class="copy-btn" data-text="ABERTURA ATENDIMENTO
+MOTIVO DO CONTATO: 
+RESOLUÇÃO: 
+N° PROTOCOLO: ">
+        Atendimento
+      </button>
+
+      <button class="copy-btn" data-text="LIBERAÇÃO DE CONFIANÇA
+FATURA EM ABERTO: 
+PRAZO PARA PAGAR: 
+CIENTE DO PRAZO: Ciente
+MEIO DE CONTATO: 
+N° PROTOCOLO: ">
+        Liberação
+      </button>
+
+      <button class="copy-btn" data-text="O.S REPARO
+RELATO DO CLIENTE: 
+PONTO DE REFERÊNCIA: 
+OBS: 
+O.S ANTERIOR: 
+N° PROTOCOLO: ">
+        O.S Reparo
+      </button>
+
+      <button class="copy-btn" data-text="ANIVERSARIANTE
+MOTIVO: Aniversariante do dia
+RESOLUÇÃO: Mensagem padrão de aniversário
+N° PROTOCOLO: ">
+        Aniversariante
+      </button>
+
+      <button class="copy-btn" data-text="ADESÃO
+CONTRATO: ( ) JÁ PROTOCOLADO ( ) LEVAR PARA CLIENTE ASSINAR ( ) CLIENTE VAI ASSINAR DIGITAL
+CONSULTOR: 
+NECESSIDADE DO CLIENTE: 
+PLANO CONTRATADO: 
+TECNOLOGIA: UTP ( ) FTTH ( )
+DATA DE VENCIMENTO: 
+VALOR A RECEBER: 
+DOCUMENTOS OK?: Ok
+DATA DA INSTALAÇÃO: 
+TURNO PREFERENCIAL: 
+FIDELIDADE 1 ANO: Ciente
+MEIO DE CONTATO: 
+N° PROTOCOLO: ">
+        Adesão
+      </button>
+
+      <button class="copy-btn" data-text="UPGRADE
+CONTRATO: ( ) JÁ PROTOCOLADO ( ) LEVAR PARA CLIENTE ASSINAR ( ) CLIENTE VAI ASSINAR DIGITAL
+PLANO ATUAL: 
+PLANO OFERECIDO: 
+FECHOU PLANO?: Sim
+MODELO DO ROTEADOR: 
+TAXA DE UPGRADE: 
+MOTIVO DO FECHAMENTO: 
+CADASTRO ATUALIZADO?: 
+MEIO DE CONTATO: 
+N° PROTOCOLO: 
+Obs: Cliente ciente da atualização do plano e da renovação de fidelidade por 12 meses.">
+        Upgrade
+      </button>
+
+      <button class="copy-btn" data-text="MUDANÇA DE ENDEREÇO
+POSSUI CABEAMENTO?: 
+QUAL A TECNOLOGIA: UTP ( ) FTTH ( )
+CONTRATO: JÁ PROTOCOLADO ( ) ASSINATURA DIGITAL ( ) LEVAR PARA CLIENTE ASSINAR ( )
+RECEBER TAXA?: 
+Rua: 
+Nº: 
+Bairro: 
+PONTO DE REFERÊNCIA: 
+TURNO: 
+CONTATO: 
+AGENDAMENTO: 
+MEIO DE CONTATO: 
+N° PROTOCOLO: ">
+        Mudança de Endereço
+      </button>
+
+      <!--<button class="copy-btn" data-text="O.S RESOLVIDO POR TELEFONE
+RELATO DO CLIENTE: 
+TESTES REALIZADOS: 
+RESOLUÇÃO: 
+MEIO DE CONTATO: Telefone
+N° PROTOCOLO: ">
+        O.S Resolvida por Telefone
+      </button>-->
+
+      <button class="copy-btn" data-text="INDIQUE UM AMIGO
+CLIENTE QUE INDICOU: 
+CLIENTE INDICADO: 
+DESCONTO APLICADO: ">
+        Indique um Amigo
+      </button>
+
+      <button class="copy-btn" data-text="SUSPENSÃO TEMPORÁRIA
+MOTIVO DA SUSPENSÃO: 
+MEIO DE CONTATO: 
+N° PROTOCOLO: ">
+        Suspensão Temporária
+      </button>
+
+      <button class="copy-btn" data-text="REDE INTERNA
+VALOR: 
+MOTIVO: 
+AGENDAMENTO: 
+PROTOCOLO: 
+OBS: Cliente ciente da cobrança de R$3,00 por metro após 10m.">
+        Rede Interna
+      </button>
+
+      <button class="copy-btn" data-text="MUDANÇA DE CÔMODO
+VALOR: 
+MOTIVO: 
+AGENDAMENTO: 
+PROTOCOLO: ">
+        Mudança de Cômodo
+      </button>
+
+      <button class="copy-btn" data-text="FILA DE BLOQUEIO
+DATA DO CONTATO: 
+HORÁRIO: 
+MOTIVO: 
+CONTATO COM SUCESSO?: ">
+        Fila de Bloqueio
+      </button>
+
+      <button class="copy-btn" data-text="PÓS ATENDIMENTO
+MOTIVO: Pós de reparo técnico
+CONTATO REALIZADO: ( ) COM SUCESSO ( ) SEM SUCESSO / ( ) SATISFEITO ( ) INSATISFEITO
+N° PROTOCOLO: ">
+        Pós Atendimento
+      </button>
+
+      <button class="copy-btn" data-text="PÓS DE VENDA
+MOTIVO: Pós venda
+CONTATO REALIZADO: ( ) COM SUCESSO ( ) SEM SUCESSO
+N° PROTOCOLO: ">
+        Pós de Venda
+      </button>
+
+      <button class="copy-btn" data-text="PESQUISA DE SATISFAÇÃO (SEM ABRIR O.S A MAIS DE 90 DIAS)
+DATA DO CONTATO: 
+RELATO: Cliente informou que está tudo funcionando perfeitamente e que está satisfeito com o serviço / Cliente não atendeu as tentativas de contato telefônico
+PROTOCOLO: ">
+        Pesquisa de Satisfação
+      </button>
+
+      <button class="copy-btn" data-text="PESQUISA DE NPS
+CLIENTE ATENDEU: ( ) SIM ( ) NÃO
+NOTA: 
+SUGESTÃO DE MELHORIA: 
+PROTOCOLO: ">
+        Pesquisa de NPS
+      </button>
+
+      <button class="copy-btn" data-text="VELOCIDADE DE TESTE
+PLANO ATUAL: 
+PLANO DE TESTE: 
+MODELO DO ROTEADOR: 
+DATA DE RETIRADA: 
+MOTIVO DO TESTE: 
+MEIO DE CONTATO: 
+N° PROTOCOLO: ">
+        Velocidade de Teste
+      </button>
+
+    </section>
+
+  </main>
+
+</div>
+
+<div class="toast" id="toast">Mensagem copiada!</div>
+
+<script>
+const sidebar = document.querySelector('.sidebar');
+let hoverTimeout;
+
+sidebar.addEventListener('mouseenter', () => {
+  hoverTimeout = setTimeout(() => {
+    sidebar.classList.add('open');
+  }, 80);
+});
+
+sidebar.addEventListener('mouseleave', () => {
+  clearTimeout(hoverTimeout);
+  sidebar.classList.remove('open');
+});
+document.addEventListener('DOMContentLoaded', () => {
+
+  const audio = document.getElementById("clickSound");
+  const toast = document.getElementById("toast");
+
+  document.querySelectorAll(".copy-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      navigator.clipboard.writeText(btn.dataset.text);
+      audio.currentTime = 0;
+      audio.volume = 0.15;
+      audio.play();
+
+      toast.style.display = "block";
+      setTimeout(() => toast.style.display = "none", 2000);
+    });
+  });
+
+});
+</script>
+
 </body>
-
 </html>
