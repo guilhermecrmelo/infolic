@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Infolic | Balcão</title>
+  <link rel="stylesheet" href="style.css" />
+  <audio id="clickSound" src="click.mp3" preload="auto"></audio>
+  <script src="script.js"></script>
+</head>
+
+<body>
+
+<div class="app">
+
+  <aside class="sidebar">
+    <figure class="logo">
+      <img src="infolic.png" alt="Infolic Telecom">
+      <span>Infolic Telecom</span>
+    </figure>
+
+    <nav class="menu">
+      <button class="menu-item" id="openAtendimento">👤 <span>Atendimentos</span></button>
+      <button class="menu-item" id="openBalcao">🏪 <span>Balcão</span></button>
+      <button class="menu-item" id="openConfig">⚙️ <span>Configurações</span></button>
+      <button class="menu-item" id="openSupport">🛠️ <span>Suporte</span></button>
+    </nav>
+
+    <div class="theme-toggle">
+     <span class="icon">🌙</span>
+     <label class="switch">
+      <input type="checkbox" id="themeToggle">
+      <span class="slider"></span>
+     </label>
+    </div>
+
+  </aside>
+
+  <main class="content">
+
+    <header class="header">
+      <span class="badge">Balcão</span>
+      <p>Mensagens prontas para facilitar o atendimento no balcão</p>
+    </header>
+
+    <section class="buttons-container">
+
+      <button class="copy-btn" data-text="ABERTURA ATENDIMENTO
+MOTIVO DO CONTATO: 
+RESOLUÇÃO: ">
+        Atendimento
+      </button>
+
+      <button class="copy-btn" data-text="LIBERAÇÃO DE CONFIANÇA
+FATURA EM ABERTO: 
+PRAZO PARA PAGAR: 
+CIENTE DO PRAZO: Ciente
+MEIO DE CONTATO: ">
+        Liberação
+      </button>
+
+      <button class="copy-btn" data-text="RELATO DO CLIENTE: 
+PONTO DE REFERÊNCIA: 
+OBS: 
+O.S ANTERIOR: ">
+        O.S Reparo
+      </button>
+
+      <button class="copy-btn" data-text="ADESÃO
+CONSULTOR: 
+NECESSIDADE DO CLIENTE: 
+PLANO CONTRATADO: 
+TECNOLOGIA: UTP ( ) FTTH ( )
+DATA DE VENCIMENTO: 
+VALOR A RECEBER: 
+DOCUMENTOS OK?: Ok
+DATA DA INSTALAÇÃO: 
+TURNO PREFERENCIAL: 
+FIDELIDADE 1 ANO: Ciente
+MEIO DE CONTATO: ">
+        Adesão
+      </button>
+
+      <button class="copy-btn" data-text="UPGRADE
+PLANO ATUAL: 
+PLANO OFERECIDO: 
+FECHOU PLANO?: Sim
+MODELO DO ROTEADOR: 
+TAXA DE UPGRADE: 
+MOTIVO DO FECHAMENTO: 
+CADASTRO ATUALIZADO?: 
+MEIO DE CONTATO: ">
+        Upgrade
+      </button>
+
+      <button class="copy-btn" data-text="MUDANÇA DE ENDEREÇO
+POSSUI CABEAMENTO?: 
+QUAL A TECNOLOGIA: UTP ( ) FTTH ( )
+RECEBER TAXA?: 
+Rua: 
+Nº: 
+Bairro: 
+PONTO DE REFERÊNCIA: 
+TURNO: 
+CONTATO: 
+AGENDAMENTO: 
+MEIO DE CONTATO: ">
+        Mudança de Endereço
+      </button>
+
+<button class="copy-btn" data-text="INDIQUE UM AMIGO
+CLIENTE QUE INDICOU: 
+CLIENTE INDICADO: 
+DESCONTO APLICADO: ">
+        Indique um Amigo
+      </button>
+
+<button class="copy-btn" data-text="SUSPENSÃO TEMPORÁRIA
+MOTIVO DA SUSPENSÃO: 
+MEIO DE CONTATO: ">
+        Suspensão Temporária
+      </button>
+
+<button class="copy-btn" data-text="REDE INTERNA
+VALOR: 
+MOTIVO: 
+AGENDAMENTO: 
+OBS: Cliente ciente da cobrança de R$3,00 por metro após 10m.">
+        Rede Interna
+      </button>
+
+<button class="copy-btn" data-text="MUDANÇA DE CÔMODO
+VALOR: 
+MOTIVO: 
+AGENDAMENTO: ">
+        Mudança de Cômodo
+      </button>
+
+<button class="copy-btn" data-text="PÓS ATENDIMENTO
+MOTIVO: Pós de reparo técnico
+CONTATO REALIZADO: ( ) COM SUCESSO ( ) SEM SUCESSO / ( ) SATISFEITO ( ) INSATISFEITO">
+        Pós Atendimento
+      </button>
+
+      <button class="copy-btn" data-text="PÓS DE VENDA
+MOTIVO: Pós venda
+CONTATO REALIZADO: ( ) COM SUCESSO ( ) SEM SUCESSO">
+        Pós de Venda
+      </button>
+
+     <button class="copy-btn" data-text="VELOCIDADE DE TESTE
+PLANO ATUAL: 
+PLANO DE TESTE: 
+MODELO DO ROTEADOR: 
+DATA DE RETIRADA: 
+MOTIVO DO TESTE: 
+MEIO DE CONTATO: ">
+        Velocidade de Teste
+      </button>
+
+    </section>
+
+  </main>
+
+</div>
+
+<!-- MODAIS (mesmos do index) -->
+<div class="modal-overlay" id="configModal">
+
+  <div class="modal">
+
+    <button class="modal-close" aria-label="Fechar">✕</button>
+
+    <h2>Configurações</h2>
+    <p>
+      Não tem configuração no momento.<br>
+      Precisou de alguma coisa? Só lamento 😅
+    </p>
+
+  </div>
+
+</div>
+<div class="modal-overlay" id="supportModal">
+
+  <div class="modal">
+
+    <button class="modal-close" aria-label="Fechar">✕</button>
+
+    <h2>Suporte 😅</h2>
+    <p>
+      Temos uma equipe de suporte incrível à disposição.<br><br>
+
+      <strong>Uma equipe de um homem só.</strong> 😂<br>
+      É ele que resolve, ajusta, quebra a cabeça e faz mágica.<br><br>
+
+      Se precisar de qualquer coisa, é só chamar:<br>
+      <strong>
+        <a href="https://wa.me/5521991561204" target="_blank">
+          (21) 99156-1204
+        </a>
+      </strong>
+    </p>
+
+  </div>
+
+</div>
+
+<div class="toast" id="toast">Mensagem copiada!</div>
+
+</body>
+</html>
