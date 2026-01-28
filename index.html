@@ -5,12 +5,51 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Infolic | SAC</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="icon" href="infolicimg.png" />
   <audio id="clickSound" src="click.mp3" preload="auto"></audio>
+  <link rel="icon" href="infolicicon.png" type="image/png">
+  <script src="script.js"></script>
 </head>
 
 <body>
+<div class="modal-overlay" id="configModal">
 
+  <div class="modal">
+
+    <button class="modal-close" aria-label="Fechar">✕</button>
+
+    <h2>Configurações</h2>
+    <p>
+      Não tem configuração no momento.<br>
+      Precisou de alguma coisa? Só lamento 😅
+    </p>
+
+  </div>
+
+</div>
+<div class="modal-overlay" id="supportModal">
+
+  <div class="modal">
+
+    <button class="modal-close" aria-label="Fechar">✕</button>
+
+    <h2>Suporte 😅</h2>
+    <p>
+      Temos uma equipe de suporte incrível à disposição.<br><br>
+
+      <strong>Uma equipe de um homem só.</strong> 😂<br>
+      É ele que resolve, ajusta, quebra a cabeça e faz mágica.<br><br>
+
+      Se precisar de qualquer coisa, é só chamar:<br>
+      <strong>
+        <a href="https://wa.me/5521991561204" target="_blank">
+          (21) 99156-1204
+        </a>
+      </strong>
+    </p>
+
+  </div>
+
+</div>
 <div class="app">
 
   <aside class="sidebar">
@@ -20,11 +59,20 @@
     </figure>
 
     <nav class="menu">
-      <button class="menu-item">📊 <span>Atendimentos</span></button>
-      <button class="menu-item">📁 <span>Relatórios</span></button>
-      <button class="menu-item">⚙️ <span>Configurações</span></button>
-      <button class="menu-item">🛠️ <span>Suporte</span></button>
+      <button class="menu-item" id="openAtendimento">👤 <span>Atendimentos</span></button>
+      <button class="menu-item" id="openBalcao">🏪 <span>Balcão</span></button>
+      <button class="menu-item" id="openConfig">⚙️ <span>Configurações</span></button>
+      <button class="menu-item" id="openSupport">🛠️ <span>Suporte</span></button>
     </nav>
+
+    <div class="theme-toggle">
+     <span class="icon">🌙</span>
+     <label class="switch">
+      <input type="checkbox" id="themeToggle">
+      <span class="slider"></span>
+     </label>
+    </div>
+
   </aside>
 
   <main class="content">
@@ -52,7 +100,8 @@ N° PROTOCOLO: ">
         Liberação
       </button>
 
-      <button class="copy-btn" data-text="RELATO DO CLIENTE: 
+      <button class="copy-btn" data-text="O.S REPARO
+RELATO DO CLIENTE: 
 PONTO DE REFERÊNCIA: 
 OBS: 
 O.S ANTERIOR: 
@@ -211,40 +260,6 @@ N° PROTOCOLO: ">
 </div>
 
 <div class="toast" id="toast">Mensagem copiada!</div>
-
-<script>
-const sidebar = document.querySelector('.sidebar');
-let hoverTimeout;
-
-sidebar.addEventListener('mouseenter', () => {
-  hoverTimeout = setTimeout(() => {
-    sidebar.classList.add('open');
-  }, 80);
-});
-
-sidebar.addEventListener('mouseleave', () => {
-  clearTimeout(hoverTimeout);
-  sidebar.classList.remove('open');
-});
-document.addEventListener('DOMContentLoaded', () => {
-
-  const audio = document.getElementById("clickSound");
-  const toast = document.getElementById("toast");
-
-  document.querySelectorAll(".copy-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      navigator.clipboard.writeText(btn.dataset.text);
-      audio.currentTime = 0;
-      audio.volume = 0.15;
-      audio.play();
-
-      toast.style.display = "block";
-      setTimeout(() => toast.style.display = "none", 2000);
-    });
-  });
-
-});
-</script>
 
 </body>
 </html>
