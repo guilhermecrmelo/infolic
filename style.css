@@ -3,8 +3,16 @@
   --white: #ffffff;
   --green: #4ade80;
   --shadow: rgba(0,0,0,0.2);
+
+  /* cores tema sidebar */
+  --sidebar-light-bg: #f8fafc;
+  --sidebar-light-text: #0f172a;
+
+  --sidebar-dark-bg: #020617; /* preto fosco */
+  --sidebar-dark-text: #e5e7eb;
 }
 
+/* RESET */
 * {
   margin: 0;
   padding: 0;
@@ -12,13 +20,82 @@
   font-family: "Segoe UI", Arial, sans-serif;
 }
 
-/* BODY */
+/* ================= MODAL ================= */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  z-index: 9999;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal {
+  background: #fff;
+  width: 50%;
+  max-width: 600px;
+  min-width: 320px;
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.35);
+  transform: scale(0.96);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.modal-overlay.active .modal {
+  transform: scale(1);
+}
+
+.modal h2 {
+  margin-bottom: 16px;
+  color: var(--blue);
+}
+
+.modal p {
+  font-size: 18px;
+  line-height: 1.5;
+  color: #333;
+}
+
+.modal-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: #f1f5f9;
+  font-size: 20px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.modal-close:hover {
+  background: #e2e8f0;
+}
+
+.modal-close:active {
+  transform: scale(0.92);
+}
+
+/* ================= BODY ================= */
 body {
   height: 100vh;
   overflow-x: hidden;
 }
 
-/* APP */
+/* ================= APP ================= */
 .app {
   position: relative;
   width: 100%;
@@ -27,27 +104,38 @@ body {
   padding: 40px 130px 40px 60px;
 }
 
-/* SIDEBAR */
+/* ================= SIDEBAR ================= */
 .sidebar {
   position: absolute;
   top: 0;
   right: 0;
   height: 100%;
   width: 70px;
-  background: var(--white);
+  background: var(--sidebar-light-bg);
+  color: var(--sidebar-light-text);
   display: flex;
   flex-direction: column;
   overflow: hidden;
   z-index: 10;
   box-shadow: -4px 0 14px var(--shadow);
-  transition: width 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+
+  transition:
+    width 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.6s ease,
+    color 0.6s ease;
 }
 
 .sidebar.open {
   width: 260px;
 }
 
-/* LOGO */
+/* DARK MODE SIDEBAR */
+.sidebar.dark {
+  background: var(--sidebar-dark-bg);
+  color: var(--sidebar-dark-text);
+}
+
+/* ================= LOGO ================= */
 .logo {
   display: flex;
   align-items: center;
@@ -63,14 +151,15 @@ body {
 .logo span {
   font-size: 18px;
   font-weight: 600;
-  color: var(--blue);
+  color: inherit;
   white-space: nowrap;
   overflow: hidden;
-  max-width 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-  opacity 0.3s ease;
+  max-width: 0;
+  opacity: 0;
   transition:
-    max-width 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 0.25s ease;
+    max-width 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.25s ease,
+    color 0.6s ease;
 }
 
 .sidebar.open .logo span {
@@ -78,7 +167,7 @@ body {
   opacity: 1;
 }
 
-/* MENU */
+/* ================= MENU ================= */
 .menu {
   padding: 10px;
   display: flex;
@@ -95,15 +184,17 @@ body {
   border-radius: 10px;
   cursor: pointer;
   font-size: 16px;
-  color: #000;
+  font-weight: 700;
+  color: inherit;
   white-space: nowrap;
+
   transition:
-    background 0.2s ease,
-    transform 0.12s cubic-bezier(0.22, 1, 0.36, 1);
+    background-color 0.25s ease,
+    color 0.6s ease,
+    transform 0.15s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .menu-item span {
-  display: inline-block;
   overflow: hidden;
   max-width: 0;
   opacity: 0;
@@ -115,25 +206,82 @@ body {
 .sidebar.open .menu-item span {
   max-width: 160px;
   opacity: 1;
-  transition-delay: 0.04s;
 }
 
 .menu-item:hover {
-  background: #f1f5f9;
+  background: rgba(0,0,0,0.05);
+}
+
+.sidebar.dark .menu-item:hover {
+  background: rgba(255,255,255,0.08);
 }
 
 .menu-item:active {
   transform: translateY(2px);
 }
 
-/* CONTEÚDO */
+/* ================= TOGGLE TEMA ================= */
+.theme-toggle {
+  margin-top: auto;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.sidebar.open .theme-toggle {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.switch {
+  position: relative;
+  width: 46px;
+  height: 26px;
+}
+
+.switch input {
+  opacity: 0;
+}
+
+.slider {
+  position: absolute;
+  inset: 0;
+  background: #cbd5e1;
+  border-radius: 999px;
+  transition: background-color 0.5s ease;
+}
+
+.slider::before {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 3px;
+  left: 3px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.switch input:checked + .slider {
+  background: #2563eb;
+}
+
+.switch input:checked + .slider::before {
+  transform: translateX(20px);
+}
+
+/* ================= CONTEÚDO ================= */
 .content {
   height: 100%;
   color: var(--white);
   padding-top: 40px;
 }
 
-/* HEADER */
 .header {
   display: flex;
   align-items: center;
@@ -150,14 +298,13 @@ body {
   font-weight: bold;
 }
 
-/* BOTÕES */
+/* ================= BOTÕES ================= */
 .buttons-container {
   display: flex;
   flex-wrap: wrap;
   gap: 26px;
 }
 
-/* BOTÃO – ESTILO APPLE */
 .copy-btn {
   background: var(--white);
   color: #000;
@@ -166,42 +313,24 @@ body {
   border: none;
   cursor: pointer;
   font-size: 17px;
-  font-weight: 500;
+  font-weight: 600;
   width: 240px;
-  text-align: center;
-
   box-shadow: 0 6px 16px var(--shadow);
-  transform: scale(1);
 
   transition:
-    transform 0.12s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.12s ease;
+    transform 0.15s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.15s ease;
 }
 
-/* HOVER – cresce levemente */
 .copy-btn:hover {
   transform: scale(1.04);
-  box-shadow: 0 8px 22px rgba(0,0,0,0.22);
 }
 
-/* CLIQUE – afunda macio */
 .copy-btn:active {
-  transform: scale(1.03) translateY(2px);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.18);
+  transform: scale(1.02) translateY(2px);
 }
 
-/* RESPONSIVO */
-@media (max-width: 768px) {
-  .app {
-    padding: 30px;
-  }
-
-  .sidebar {
-    display: none;
-  }
-}
-
-/* TOAST */
+/* ================= TOAST ================= */
 .toast {
   position: fixed;
   bottom: 30px;
@@ -211,5 +340,20 @@ body {
   padding: 14px 22px;
   border-radius: 10px;
   display: none;
-  font-size: 16px;
+}
+
+/* ================= RESPONSIVO ================= */
+@media (max-width: 768px) {
+  .app {
+    padding: 30px;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .modal {
+    width: 85%;
+    padding: 28px;
+  }
 }
